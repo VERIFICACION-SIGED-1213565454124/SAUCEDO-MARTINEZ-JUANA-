@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>SIGED – Certificado Autenticado – Detalle</title>
+  <link href="https://fonts.googleapis.com/css2?family=Source+Sans+3:wght@300;400;600;700&display=swap" rel="stylesheet"/>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: 'Source Sans 3', Arial, sans-serif; font-size: 14px; color: #333; background: #fff; }
+
+    /* ── TOP BAR ── */
+    .top-bar {
+      background: #6b1a2b;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 8px 24px;
+      min-height: 48px;
+    }
+    .top-bar .logo-wrap { display: flex; align-items: center; gap: 8px; }
+    .top-bar .logo-eagle {
+      width: 36px; height: 36px;
+      background: #fff;
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 20px;
+    }
+    .top-bar .logo-text { color: #fff; font-size: 11px; line-height: 1.3; }
+    .top-bar .logo-text strong { display: block; font-size: 13px; letter-spacing: .5px; }
+    .top-bar nav { display: flex; gap: 20px; align-items: center; }
+    .top-bar nav a { color: #fff; text-decoration: none; font-size: 13px; }
+    .top-bar nav a:hover { text-decoration: underline; }
+    .top-bar .search-icon { color: #fff; font-size: 16px; cursor: pointer; }
+
+    /* ── SIGED NAV ── */
+    .siged-nav {
+      background: #8b6914;
+      display: flex;
+      align-items: center;
+      gap: 0;
+      padding: 0 24px;
+      min-height: 40px;
+    }
+    .siged-nav .brand { color: #fff; font-weight: 700; font-size: 15px; margin-right: 28px; }
+    .siged-nav a {
+      color: #fff; text-decoration: none; font-size: 13px;
+      padding: 10px 14px; display: inline-block;
+    }
+    .siged-nav a:hover { background: rgba(255,255,255,.15); }
+
+    /* ── HERO BANNER ── */
+    .hero {
+      background: #fdf6e3;
+      padding: 0;
+      position: relative;
+      overflow: hidden;
+      min-height: 130px;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+    }
+    .hero-pattern {
+      position: absolute; inset: 0;
+      background-image:
+        url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='80' height='80' viewBox='0 0 80 80'%3E%3Cg fill='none' stroke='%23c9a84c' stroke-width='0.6' opacity='0.35'%3E%3Ccircle cx='40' cy='40' r='18'/%3E%3Crect x='20' y='20' width='40' height='40' rx='2'/%3E%3Cline x1='0' y1='0' x2='80' y2='80'/%3E%3Cline x1='80' y1='0' x2='0' y2='80'/%3E%3C/g%3E%3C/svg%3E");
+      background-size: 80px 80px;
+      opacity: .5;
+    }
+    .breadcrumb {
+      position: relative; z-index: 1;
+      padding: 16px 32px 4px;
+      font-size: 12.5px; color: #555;
+    }
+    .breadcrumb a { color: #8b6914; text-decoration: none; }
+    .breadcrumb a:hover { text-decoration: underline; }
+    .breadcrumb span { color: #333; }
+    .hero-title {
+      position: relative; z-index: 1;
+      padding: 8px 32px 24px;
+      font-size: 22px; font-weight: 600; color: #222;
+    }
+
+    /* ── MAIN CONTENT ── */
+    .main { max-width: 960px; margin: 0 auto; padding: 28px 32px 48px; }
+
+    .section-title {
+      font-size: 20px; font-weight: 600; color: #222;
+      border-bottom: 3px solid #8b6914;
+      padding-bottom: 8px;
+      margin-bottom: 24px;
+    }
+    .section-title::after {
+      content: '';
+      display: block;
+      width: 48px; height: 3px;
+      background: #8b6914;
+      margin-top: 6px;
+    }
+
+    /* tab */
+    .tab-bar { margin-bottom: 0; }
+    .tab-btn {
+      background: #2e6b44; color: #fff;
+      border: none; padding: 10px 20px;
+      font-size: 13px; font-weight: 600;
+      cursor: pointer; border-radius: 3px 3px 0 0;
+    }
+
+    /* card */
+    .doc-card {
+      border: 1px solid #ddd;
+      border-radius: 0 4px 4px 4px;
+      padding: 28px 24px;
+      display: flex;
+      gap: 24px;
+      align-items: flex-start;
+      background: #fff;
+      box-shadow: 0 1px 4px rgba(0,0,0,.06);
+    }
+    .doc-icon {
+      flex-shrink: 0;
+      width: 52px; height: 60px;
+      border: 2px solid #aaa;
+      border-radius: 4px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 28px; color: #666;
+      background: #f8f8f8;
+    }
+    .doc-fields { flex: 1; display: grid; grid-template-columns: 1fr 1fr; gap: 20px 32px; }
+    .field label {
+      display: block; font-size: 13px; font-weight: 700;
+      color: #222; margin-bottom: 3px;
+    }
+    .field p { font-size: 13px; color: #333; line-height: 1.5; }
+    .field.full { grid-column: 1 / -1; }
+
+    /* ── FOOTER ── */
+    footer {
+      background: #6b1a2b;
+      color: #fff;
+      padding: 32px 48px;
+      display: grid;
+      grid-template-columns: 180px 1fr 1fr 1fr;
+      gap: 32px;
+    }
+    footer .footer-logo { display: flex; align-items: flex-start; gap: 10px; }
+    footer .footer-logo .eagle {
+      width: 40px; height: 40px; background: #fff; border-radius: 50%;
+      display: flex; align-items: center; justify-content: center; font-size: 22px; flex-shrink: 0;
+    }
+    footer .footer-logo span { font-size: 12px; line-height: 1.4; }
+    footer .footer-logo strong { display: block; font-size: 14px; }
+    footer h4 { font-size: 13px; font-weight: 700; margin-bottom: 12px; }
+    footer ul { list-style: none; }
+    footer ul li { margin-bottom: 8px; }
+    footer ul li a { color: #ddd; text-decoration: none; font-size: 12px; }
+    footer ul li a:hover { text-decoration: underline; color: #fff; }
+    footer p { font-size: 12px; line-height: 1.6; color: #ddd; }
+    footer .read-more { color: #ffcc66; text-decoration: none; font-size: 12px; }
+    .social-row { display: flex; gap: 12px; margin-top: 8px; font-size: 18px; }
+    .social-row a { color: #fff; text-decoration: none; }
+    .denuncia-link { color: #ffcc66; text-decoration: underline; font-size: 12px; font-weight: 600; }
+    .contact-row { display: flex; align-items: center; gap: 10px; margin-top: 12px; }
+    .contact-row .num { font-size: 22px; font-weight: 700; color: #ffcc66; }
+    .contact-row p { font-size: 11px; color: #ddd; line-height: 1.3; }
+    .snowflake { font-size: 18px; color: #ffcc66; }
+  </style>
+</head>
+<body>
+
+<!-- TOP BAR -->
+<header class="top-bar">
+  <div class="logo-wrap">
+    <div class="logo-eagle">🦅</div>
+    <div class="logo-text">
+      <strong>Gobierno de</strong>
+      México
+    </div>
+  </div>
+  <nav>
+    <a href="#">Trámites</a>
+    <a href="#">Gobierno</a>
+    <span class="search-icon">🔍</span>
+  </nav>
+</header>
+
+<!-- SIGED NAV -->
+<nav class="siged-nav">
+  <span class="brand">SIGED</span>
+  <a href="#">¿Quiénes somos?</a>
+  <a href="#">Consultas</a>
+  <a href="#">Estadística Educativa</a>
+  <a href="#">Indicadores Educativos</a>
+  <a href="#">Datos abiertos</a>
+  <a href="#">Aviso de Privacidad</a>
+</nav>
+
+<!-- HERO BANNER -->
+<div class="hero">
+  <div class="hero-pattern"></div>
+  <div class="breadcrumb">
+    <a href="#">Inicio</a> &rsaquo;
+    <a href="#">Consultas</a> &rsaquo;
+    <a href="#">Documentos académicos electrónicos</a> &rsaquo;
+    <a href="#">Título Autenticado</a> &rsaquo;
+    <span>Detalle</span>
+  </div>
+  <div class="hero-title">
+    Consulta de títulos electrónicos autenticados por la DGAIR
+  </div>
+</div>
+
+<!-- MAIN -->
+<main class="main">
+  <h2 class="section-title">Certificado Autenticado</h2>
+
+  <div class="tab-bar">
+    <button class="tab-btn">Detalle del documento</button>
+  </div>
+
+  <div class="doc-card">
+    <!-- Icono documento -->
+    <div class="doc-icon">📄</div>
+
+    <!-- Campos -->
+    <div class="doc-fields">
+      <div class="field">
+        <label>Nombre:</label>
+        <p>SAUCEDO MARTINEZ JUANA  </p>
+      </div>
+
+      <div class="field">
+        <label></label>
+        <p>S</p>
+      </div>
+
+      <div class="field">
+        <label>Nivel:</label>
+        <p>SECUNDARIA</p>
+      </div>
+
+      <div class="field">
+        <label>Folio Digital:</label>
+        <p>03cf892c-32ac-436i-9c1f-4ba68588f0a5</p>
+      </div>
+
+      <div class="field">
+        <label>Delegacion:</label>
+        <p>JALISCO</p>
+      </div>
+
+      <div class="field full">
+        <label>Institución Emisora</label>
+        <p>INSTITUTO NACIONAL DE EDUCACION PARA LOS ADULTOS</p>
+      </div>
+    </div>
+  </div>
+</main>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-logo">
+    <div class="eagle">🦅</div>
+    <span><strong>Gobierno de</strong> México</span>
+  </div>
+
+  <div>
+    <h4>Enlaces</h4>
+    <ul>
+      <li><a href="#">Datos abiertos de la SABG</a></li>
+      <li><a href="#">Marco Jurídico</a></li>
+      <li><a href="#">Plataforma Nacional de Transparencia</a></li>
+      <li><a href="#">Transparencia para el pueblo</a></li>
+      <li><a href="#">Alerta</a></li>
+    </ul>
+  </div>
+
+  <div>
+    <h4>¿Qué es gob.mx?</h4>
+    <p>Es el portal único de trámites, información y participación ciudadana. <a href="#" class="read-more">Leer más</a></p>
+    <br/>
+    <ul>
+      <li><a href="#">Portal de datos abiertos</a></li>
+      <li><a href="#">Declaración de accesibilidad</a></li>
+      <li><a href="#">Términos y Condiciones</a></li>
+    </ul>
+  </div>
+
+  <div>
+    <a href="#" class="denuncia-link">Denuncia contra servidores públicos</a>
+    <h4 style="margin-top:14px;">Síguenos en</h4>
+    <div class="social-row">
+      <a href="#">f</a>
+      <a href="#">𝕏</a>
+      <a href="#">📸</a>
+      <a href="#">▶</a>
+    </div>
+    <div class="contact-row">
+      <span class="snowflake">❄</span>
+      <span class="num">079</span>
+      <p>Comunícate, estamos<br>para ayudarte</p>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>
